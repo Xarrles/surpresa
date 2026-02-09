@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Uma surpresa pra você ❤️</title>
+
+    <style>
+        body {
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        button {
+            background: white;
+            color: #ff4d6d;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        #mensagem {
+            margin-top: 30px;
+            font-size: 22px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Oi, eu tenho algo pra te falar 😊</h1>
+
+    <button onclick="mostrarMensagem()">Clique aqui</button>
+
+    <div id="mensagem">
+        Você é uma pessoa muito especial pra mim ❤️
+        Eu adoro conversar com você.
+    </div>
+
+    <script>
+        function mostrarMensagem() {
+            document.getElementById("mensagem").style.display = "block";
+        }
+    </script>
+
+</body>
+
+</html>
