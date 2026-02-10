@@ -23,7 +23,7 @@
 
 
 <br>
-<button onclick="crescer()">Clique aqui</button>
+<button class="botaoCoracao" onclick="crescer()">💖</button>
 
 <div id="mensagem"></div>
 
@@ -100,7 +100,7 @@ function soltarFlores(){
 
     const flores = ["🌸","🌺","🌷","🌹","💮"];
 
-    for(let i = 0; i < 6; i++){
+    for(let i = 0; i < 12; i++){
 
         let flor = document.createElement("div");
         flor.classList.add("florClique");
@@ -176,7 +176,7 @@ function explodir(){
 
     const emojis = ["🌸","💖","💕","✨","🌺","❤️"];
 
-    for(let i = 0; i < 30; i++){
+    for(let i = 0; i < 50; i++){
 
         let particula = document.createElement("div");
         particula.classList.add("particula");
@@ -215,7 +215,7 @@ function mostrarMensagemDigitando(texto){
 
 function respostaSim(){
     document.getElementById("mensagem").innerHTML =
-        "Hehehe eu pago a janta e você é a sobremesa 😌💖";
+        "Vamos sair dia 14/02/2026 ás 19h00 😌😁";
     document.getElementById("botoesResposta").style.display = "none";
 }
 
