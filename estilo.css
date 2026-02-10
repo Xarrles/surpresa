@@ -150,3 +150,39 @@ button:hover {
     width: 180px;
     transition: transform 0.3s;
 }
+
+body {
+    background: linear-gradient(270deg, #ffe6f0, #ffd6e8, #ffe6f0);
+    background-size: 600% 600%;
+    animation: fundoAnimado 10s ease infinite;
+    font-family: Arial;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+#capivara {
+    margin: 100px 0;
+}
+
+#imgCapivara {
+    width: 200px;
+    transition: transform 0.3s;
+}
+
+/* garante que botões fiquem acima */
+button {
+    position: relative;
+    z-index: 3;
+}
+
+/* animação fundo */
+@keyframes fundoAnimado {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
