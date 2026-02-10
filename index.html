@@ -2,62 +2,223 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Uma surpresa pra você ❤️</title>
-
-    <style>
-        body {
-            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: white;
-            padding-top: 80px;
-        }
-
-        h1 {
-            font-size: 40px;
-        }
-
-        button {
-            background: white;
-            color: #ff4d6d;
-            border: none;
-            padding: 15px 25px;
-            font-size: 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-        }
-
-        #mensagem {
-            margin-top: 30px;
-            font-size: 22px;
-            display: none;
-        }
-    </style>
+<link rel="stylesheet" href="estilo.css">
+<meta charset="UTF-8">
+<title>Capivara Feliz 🐹</title>
 </head>
+
 
 <body>
 
-    <h1>Oi, eu tenho algo pra te falar 😊</h1>
+<h2>Faça a capivara feliz 💖</h2>
 
-    <button onclick="mostrarMensagem()">Clique aqui</button>
+<div id="falaCapivara" style="font-size:20px; margin-bottom:15px;">
+    Oii... 😊
+</div>
 
-    <div id="mensagem">
-        Você é uma pessoa muito especial pra mim ❤️
-        Eu adoro conversar com você.
-    </div>
 
-    <script>
-        function mostrarMensagem() {
-            document.getElementById("mensagem").style.display = "block";
+<div id="capivara">
+    <img id="imgCapivara" src="imagens/capivara1.png">
+</div>
+
+
+<br>
+<button onclick="crescer()">Clique aqui</button>
+
+<div id="mensagem"></div>
+
+<div id="botoesResposta">
+    <button onclick="respostaSim()">Sim 💖</button>
+    <button onclick="respostaSim()">Claro que sim 😌</button>
+</div>
+
+<!-- 🔊 som -->
+<audio id="somExplosao">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d2b4c4f52.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let tempo = 0;
+
+document.addEventListener("mousemove", function(e){
+
+    if(Date.now() - tempo < 60) return;
+    tempo = Date.now();
+
+    const coracao = document.createElement("div");
+
+    coracao.classList.add("coracaoMouse");
+
+    const coracoes = ["💖","💕","💗","💘","💝"];
+    coracao.innerHTML =
+        coracoes[Math.floor(Math.random() * coracoes.length)];
+
+    coracao.style.left = e.clientX + "px";
+    coracao.style.top = e.clientY + "px";
+
+    document.body.appendChild(coracao);
+
+    setTimeout(() => coracao.remove(), 1000);
+
+});
+
+
+
+const frases = [
+    "Oii... 😊",
+    "Você tá me deixando feliz 💖",
+    "Tô ficando gordinha de alegria 🐹",
+    "Acho que vou explodir de felicidade 😳",
+    "Preciso te perguntar uma coisa..."
+];
+
+const capivaras = [
+    "imagens/capivara1.png",
+    "imagens/capivara2.png",
+    "imagens/capivara3.png",
+    "imagens/capivara4.png"
+];
+
+
+let tamanho = 1;
+let cliques = 0;
+
+function trocarCapivara(){
+
+    let indice = Math.min(cliques - 1, capivaras.length - 1);
+
+    document.getElementById("imgCapivara").src =
+        capivaras[indice];
+}
+
+function soltarFlores(){
+
+    let capivara = document.getElementById("capivara");
+    let rect = capivara.getBoundingClientRect();
+
+    const flores = ["🌸","🌺","🌷","🌹","💮"];
+
+    for(let i = 0; i < 6; i++){
+
+        let flor = document.createElement("div");
+        flor.classList.add("florClique");
+
+        flor.innerHTML =
+            flores[Math.floor(Math.random() * flores.length)];
+
+        // posição da capivara
+        flor.style.left = rect.left + rect.width/2 + "px";
+        flor.style.top = rect.top + rect.height/2 + "px";
+
+        // direção aleatória
+        let x = (Math.random() - 0.5) * 200 + "px";
+        let y = (Math.random() - 0.5) * 200 - 80 + "px";
+
+        flor.style.setProperty("--x", x);
+        flor.style.setProperty("--y", y);
+
+        document.body.appendChild(flor);
+
+        setTimeout(() => flor.remove(), 1200);
+    }
+}
+
+
+function crescer(){
+
+    cliques++;
+    tamanho += 0.2;
+
+    trocarCapivara();
+
+    let capivara = document.getElementById("imgCapivara");
+
+
+    // reaplica o scale após trocar desenho
+    capivara.style.transform = `scale(${tamanho})`;
+
+
+    soltarFlores();
+
+    if(cliques < frases.length){
+        document.getElementById("falaCapivara").innerHTML =
+            frases[cliques];
+    }
+
+    if(cliques >= 4){
+        prepararExplosao();
+    }
+
+    if(cliques === 4){
+        mostrarMensagemDigitando("Você aceitaria sair comigo? 😊");
+    }
+}
+
+
+function prepararExplosao(){
+
+    let capivara = document.getElementById("capivara");
+
+    capivara.classList.add("tremer");
+
+    setTimeout(() => {
+        capivara.classList.remove("tremer");
+        explodir();
+    }, 800);
+}
+
+function explodir(){
+
+    document.getElementById("somExplosao").play();
+    document.getElementById("capivara").style.display = "none";
+
+    const emojis = ["🌸","💖","💕","✨","🌺","❤️"];
+
+    for(let i = 0; i < 30; i++){
+
+        let particula = document.createElement("div");
+        particula.classList.add("particula");
+
+        particula.innerHTML =
+            emojis[Math.floor(Math.random() * emojis.length)];
+
+        particula.style.left = Math.random() * window.innerWidth + "px";
+        particula.style.top = (window.innerHeight / 2) + "px";
+
+        document.body.appendChild(particula);
+
+        setTimeout(() => particula.remove(), 2000);
+    }
+}
+
+function mostrarMensagemDigitando(texto){
+
+    let div = document.getElementById("mensagem");
+    div.style.display = "block";
+
+    let i = 0;
+
+    let intervalo = setInterval(() => {
+
+        div.innerHTML += texto[i];
+        i++;
+
+        if(i >= texto.length){
+            clearInterval(intervalo);
+            document.getElementById("botoesResposta").style.display = "block";
         }
-    </script>
 
+    }, 60);
+}
+
+function respostaSim(){
+    document.getElementById("mensagem").innerHTML =
+        "Sabia 😌💖 Vai ser incrível sair com você!";
+    document.getElementById("botoesResposta").style.display = "none";
+}
+
+
+</script>
 </body>
-
 </html>
